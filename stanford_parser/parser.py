@@ -4,14 +4,14 @@
 
 # Stanford CoreNLP connector compatible with stanford-parser.jar version up to 2.0.5, build date 2013-04-05
 # http://nlp.stanford.edu/software/stanford-corenlp-full-2013-04-04.zip
-from __future__ import print_function
+
 
 import logging
 import os
 import platform
 import re
 import sys
-
+from pyxtension.Json import Json
 from pyxtension.streams import slist
 
 from gramm_types import DepType, STANFORD_WORD_TAGS, CTags, STEM_EXCEPTIONS
@@ -149,9 +149,9 @@ class Parser:
         _JClasses.init(stanford_home)
         try:
             self.parser = _JClasses.JLexicalizedParser.loadModel(pcfg_model_fname, ["-retainTmpSubcategories"])
-        except Exception as e:
-            print("Can not instantiate LexicalizedParser with %s" % str(self.pcfg_model_fname))
-            raise e
+        except Exception:
+            print(("Can not instantiate LexicalizedParser with %s" % str(pcfg_model_fname)))
+            raise
         self.parser.setOptionFlags(["-retainTmpSubcategories"])
         self.morphology = _JClasses.JMorphology
         self.englishGrammaticalStructure = _JClasses.JEnglishGrammaticalStructure
@@ -169,7 +169,7 @@ class Parser:
         iterator = dp.iterator()
         sentences = slist()
         while iterator.hasNext():
-            sentence_array = iterator.next()
+            sentence_array = next(iterator)
             tokens = []
             for idx in range(sentence_array.size()):
                 token = sentence_array[idx].toString()
@@ -265,6 +265,17 @@ class StanfordParsedSentence(AbstractParsedSentence):
 
         return self.tagged_text.filter(lambda swn: swn.tag in STANFORD_WORD_TAGS).map(StanfordParsedSentence._toWord)
 
+    def toJson(self):
+        """
+        :return:
+        :rtype: Json
+        """
+        j = Json()
+        j.text = self._text
+        j.tree = self._tree.toJson()
+        j.dependencies = self.dependencies.toJson()
+
+
 
 class StanfordSyntacticTree(AbstractSyntacticTree):
     def __init__(self, jTree=None, sfp=None):
@@ -346,7 +357,7 @@ class StanfordSyntacticTree(AbstractSyntacticTree):
                 q.extend(reversed(chldren))
         wNodes = slist(hWordsPositions[p] for p in sorted(hWordsPositions.keys()))
         """:type : list[SyntWordNode]"""
-        for i in xrange(len(wNodes)):
+        for i in range(len(wNodes)):
             wNodes[i].set_position(i)
 
         return ptree, wNodes

@@ -1,5 +1,4 @@
 import types
-from itertools import imap
 
 __author__ = 'ASU'
 
@@ -65,7 +64,7 @@ GRAMMATICAL_RELATIONS = [
     ('prepc', 'prepc_collapsed'),
 
     ('conj_+',
-     u"[subject,verb] '' One peculiar thing about the grammar on the title is that instead of being just a normal independent clause , which is subject + verb it turns out to be verb + subject ."),
+     "[subject,verb] '' One peculiar thing about the grammar on the title is that instead of being just a normal independent clause , which is subject + verb it turns out to be verb + subject ."),
     ('conj_and',
      '[friendship,altered] An exploration of friendship and altered states of normality within a broken world of deals and highs .'),
     ('conj_and\\/or',
@@ -78,11 +77,11 @@ GRAMMATICAL_RELATIONS = [
     ('conj_if',
      "[litany,resolution] Thus , while the result seems a foregone conclusion , Keats ' static world creates a litany of possible outcomes more beautiful than if any final resolution ."),
     ('conj_just',
-     u'[birth,men] Also it is pointed out when women were giving birth it was like a battle , just as painful as the ones men fought in wars .'),
+     '[birth,men] Also it is pointed out when women were giving birth it was like a battle , just as painful as the ones men fought in wars .'),
     ('conj_loved',
-     u"[that,Caesar] '' ... not that I loved Caesar less , but that I loved Rome more '' -LRB- III . ii .21 -RRB- ."),
+     "[that,Caesar] '' ... not that I loved Caesar less , but that I loved Rome more '' -LRB- III . ii .21 -RRB- ."),
     ('conj_merely',
-     u"[home,housewives] On the other hand , the feminine roles symbolize the patriarchal nature of the traditional values of society ; in the text the woman 's place was the home , as merely housewives , this is implied in the fact that they were `` wearing faded house dresses and sweaters '' ."),
+     "[home,housewives] On the other hand , the feminine roles symbolize the patriarchal nature of the traditional values of society ; in the text the woman 's place was the home , as merely housewives , this is implied in the fact that they were `` wearing faded house dresses and sweaters '' ."),
     ('conj_negcc',
      "[more,God] Antonio believes more of the Golden Carp rather than God because God punished people while the Golden Carp `` swallows everything good and evil `` and `` becomes `` a new sun to shine its good light upon the earth '' -LRB- 176 -RRB- ."),
     ('conj_nor',
@@ -93,11 +92,11 @@ GRAMMATICAL_RELATIONS = [
     ('conj_so',
      "[leading,woman] The novel 's influence was so pronounced around the country , leading to and during the civil war , that upon meeting Harriet Beech Stowe , President Abraham Lincoln said , `` So you are the woman who started this war ."),
     ('conj_times',
-     u'[conversation,Margrethe] The author Michael Frayn also appeared to not include exits or entrances in the play , as Copenhagen was a single conversation between the two Bohr and Heisenberg and at times Margrethe .'),
+     '[conversation,Margrethe] The author Michael Frayn also appeared to not include exits or entrances in the play , as Copenhagen was a single conversation between the two Bohr and Heisenberg and at times Margrethe .'),
     ('conj_v.',
      "[Brown,Board] Although Jim Crow laws were settled by the 1954 court case , Brown v. Board of Education of Topeka , where all laws and public policy based on the theory of `` separate but equal '' were deemed unconstitutional ; they were not fully eliminated until the mid 1960 's , almost one hundred years after the end of U.S. Civil War and the beginning of Radical Reconstruction ."),
     ('conj_versus', "[Tom,Bob] This trial is Tom versus Bob Ewell on charges that Tom rapped Bob 's daughter ."),
-    ('conj_vs.', u"[Chiang,Mao] '' -LRB- Civil War : Chiang vs. Mao -RRB- ."),
+    ('conj_vs.', "[Chiang,Mao] '' -LRB- Civil War : Chiang vs. Mao -RRB- ."),
     ('conj_whether',
      '[disputed,gets] There were many small arguments during 1885 to 1914 , as countries disputed over whether who gets which country .'),
     ('conj_yet',
@@ -106,7 +105,7 @@ GRAMMATICAL_RELATIONS = [
     ('prep_#',
      "[is,One] '' # `` One other thing schools are trying to do is : taking the auditorium and making them into large classrooms for one class that contains the most children ."),
     ('prep_694',
-     u"[York,creation] -LRB- New York : Bedford \\/ St. Martin 's 2010 -RRB- 694 The creation of a minimum wage law now prevented companies from paying unfair wages to its employees ."),
+     "[York,creation] -LRB- New York : Bedford \\/ St. Martin 's 2010 -RRB- 694 The creation of a minimum wage law now prevented companies from paying unfair wages to its employees ."),
     ('prep_aboard',
      '[236,Pequod] 236 -RRB- After capturing a whale , the crew aboard the Pequod throws the remains of the whale out for the sharks to eat .'),
     ('prep_about',
@@ -130,11 +129,11 @@ GRAMMATICAL_RELATIONS = [
     ('prep_along_with',
      '[determine,income] Your credit score along with your available income will determine what kind of interest rate you will have and how much money you can spend per month on a house payment .'),
     ('prep_alongside',
-     u"[effemanite,comment] '' This effemanite description alongside the comment of `` his freend and compeer , '' suggests to the audience that he is perhaps homosexual ."),
+     "[effemanite,comment] '' This effemanite description alongside the comment of `` his freend and compeer , '' suggests to the audience that he is perhaps homosexual ."),
     ('prep_although',
      '[thinking,women] Different with women who has more mature thinking although women still in the young ages .'),
     ('prep_amendment',
-     u"[first,states] The first amendment states '' . . respecting the establishment of religion ... '' When Christian students listen and are forced to learn the theory of Evolution , it is restricting them to worship without obstacles and is therefore , disrespecting the establishment of religion by defying the existence of God ."),
+     "[first,states] The first amendment states '' . . respecting the establishment of religion ... '' When Christian students listen and are forced to learn the theory of Evolution , it is restricting them to worship without obstacles and is therefore , disrespecting the establishment of religion by defying the existence of God ."),
     ('prep_amid',
      "[were,war] Lincolns ' Gettysburg Address on the other hand was created for the people of the United States while they were amid the Civil war ."),
     ('prep_among',
@@ -148,11 +147,11 @@ GRAMMATICAL_RELATIONS = [
     ('prep_as', '[read,comment] So I guess that for me this novel read as a social comment .'),
     ('prep_as_for',
      '[groups,profile] As for the profile of major players in the derivatives markets , individual investors and securities firms are the two dominant groups of investors .'),
-    ('prep_as_from', u'[save,extension] There most likely will not we another race to save as from extension .'),
+    ('prep_as_from', '[save,extension] There most likely will not we another race to save as from extension .'),
     ('prep_as_of',
      '[schooled,Spring] As of Spring 2007 , an estimated 2.9 % of children are being home schooled in the United States alone .'),
     ('prep_as_per',
-     u'[parent,advice] As per the advice of a friend , when I had my first child , I became a single parent and she encouraged me to applied for temporary government assistance -LRB- TANF -RRB- .'),
+     '[parent,advice] As per the advice of a friend , when I had my first child , I became a single parent and she encouraged me to applied for temporary government assistance -LRB- TANF -RRB- .'),
     ('prep_as_to',
      '[granted,marriages] This argument hinged upon California Family Code Section 297.5 , which granted the same rights and responsibilities to civil unions and domestic partnerships as to marriages .'),
     ('prep_aside_from',
@@ -162,7 +161,7 @@ GRAMMATICAL_RELATIONS = [
     ('prep_away_from',
      "[stayed,topic] Lee went head at the lifestyle of the 1930 's in Alabama , and talked about racism and prejudice as many others stayed away from that topic ."),
     ('prep_barring',
-     u'[grades,segregation] Under the 10th Amendment of the US Constitution , education evolved into an escalade of state , county and city districts as funds for all school grades and laws barring segregation benefited scores of students .'),
+     '[grades,segregation] Under the 10th Amendment of the US Constitution , education evolved into an escalade of state , county and city districts as funds for all school grades and laws barring segregation benefited scores of students .'),
     ('prep_based_on',
      '[inheritance,blood] To ensure this , monogamy replaced free sexual relations , and inheritance based on blood has been formed .'),
     ('prep_because',
@@ -172,7 +171,7 @@ GRAMMATICAL_RELATIONS = [
     ('prep_before',
      '[night,arrival] In the first dream , the night before the arrival of Ultima , Antonio is born and both sides of his family gather together for the arrival of the baby boy .'),
     ('prep_beginning',
-     u"[Antonio,passage] `` O '' -LRB- 2.1.252 -RRB- laments Antonio beginning the passage with an informal introduction ."),
+     "[Antonio,passage] `` O '' -LRB- 2.1.252 -RRB- laments Antonio beginning the passage with an informal introduction ."),
     ('prep_behind', '[faded,Siddhartha] The shadow soon faded behind Siddhartha when Govinda became a man .'),
     ('prep_below',
      "[50,timers] London tells of the traveler 's lack of concern for important survival instructions when he states , `` The old timer had been very serious in laying down the law that no man must travel alone in the Klondike after 50 below '' those old timers were rather womanish , some of them , he thought '' -LRB- 12 -RRB- ."),
@@ -184,7 +183,7 @@ GRAMMATICAL_RELATIONS = [
     ('prep_beyond',
      "[look,horizon] Yet , its concept is still recycled in the twenty-first century , as it inspires all humanity to look beyond the `` horizon , '' as Janie explains ."),
     ('prep_boys',
-     u'[play,13] Among elementary and middle school populations , girls play video games for an average of about 5.5 h\\/week and boys average 13 h\\/week -LRB- Anderson et al.'),
+     '[play,13] Among elementary and middle school populations , girls play video games for an average of about 5.5 h\\/week and boys average 13 h\\/week -LRB- Anderson et al.'),
     ('prep_but',
      "[separate,equal] Although Jim Crow laws were settled by the 1954 court case , Brown v. Board of Education of Topeka , where all laws and public policy based on the theory of `` separate but equal '' were deemed unconstitutional ; they were not fully eliminated until the mid 1960 's , almost one hundred years after the end of U.S. Civil War and the beginning of Radical Reconstruction ."),
     ('prep_by', '[feel,content] Some people may feel shocked by the content of this novel .'),
@@ -214,14 +213,14 @@ GRAMMATICAL_RELATIONS = [
     ('prep_during',
      '[nurse,pregnancy] By using the fact that female are the ones who nurse children because of their enlarged breasts during pregnancy , it is suggesting that the father is obese because his child believes he is the mother and has large enough breasts to feed on .'),
     ('prep_en',
-     u"[difeme,profondeur] To reduce wastage , the number of soldiers killed during a normal day , the French adopted the use of `` difeme en profondeur -LRB- defense in depth -RRB- '' '' -LRB- Smith 195 -RRB- ."),
+     "[difeme,profondeur] To reduce wastage , the number of soldiers killed during a normal day , the French adopted the use of `` difeme en profondeur -LRB- defense in depth -RRB- '' '' -LRB- Smith 195 -RRB- ."),
     ('prep_except',
      '[hold,that] They were not able to vote , hold bank accounts , sign contracts , or hold a professional position except that of a teacher .'),
     ('prep_except_for',
      "[unfaithful,handkerchief] Iago preys on Othello 's vulnerability leading him to believe that Desdemona has been unfaithful without significant evidence , except for her handkerchief ."),
     ('prep_far_from', '[was,anything] The Samana way of life was far from anything Siddhartha and Govinda knew .'),
     ('prep_followed_by',
-     u"[adding,servants] Portia finely says that she thinks worthy of Bassanio and Shakespeare has made the audience excited by adding the sound of trumpets and the Prince of Moroccobeing followed by he 's servants that makes the audience think that he 's rich ."),
+     "[adding,servants] Portia finely says that she thinks worthy of Bassanio and Shakespeare has made the audience excited by adding the sound of trumpets and the Prince of Moroccobeing followed by he 's servants that makes the audience think that he 's rich ."),
     ('prep_following',
      "[lines,them] Sexton 's apparent dislike of change is apparent when juxtaposing lines such as , `` The objects keep changing , '' and , `` Nothing is what is seems to be , '' to the lines immediately following them , which respectively state , `` Ashtrays to cry into , '' and , `` My objects dream and wear new costumes ."),
     ('prep_for', '[this,me] And this , for me , made the novel convincing and rather clever .'),
@@ -232,7 +231,7 @@ GRAMMATICAL_RELATIONS = [
     ('prep_genetic',
      '[helps,engineering] Genetic engineering , it helps promote agriculture business , which can cause the use of more Herbicides , which tend to contaminate water and cause farmers illness .'),
     ('prep_half',
-     u"[\\/,love] Furthermore , in reality , according to Elizabethan beliefs , daughters were supposed to `` carry \\/ Half -LRB- their -RRB- love with -LRB- their husbands -RRB- , half -LRB- their -RRB- care and duty '' -LRB- I.i.103-104 -RRB- , since it was the duty of daughters and sons to love their father as well as their spouses and children ."),
+     "[\\/,love] Furthermore , in reality , according to Elizabethan beliefs , daughters were supposed to `` carry \\/ Half -LRB- their -RRB- love with -LRB- their husbands -RRB- , half -LRB- their -RRB- care and duty '' -LRB- I.i.103-104 -RRB- , since it was the duty of daughters and sons to love their father as well as their spouses and children ."),
     ('prep_if',
      '[left,England] The first and most famous settlers were the Pilgrims , who left Southampton in England in 1620 for the New World due to religious differences with Church if England , the governing body of Christianity in England .'),
     ('prep_in',
@@ -245,7 +244,7 @@ GRAMMATICAL_RELATIONS = [
      '[children,emergencies] Yes cell phones are great to have for children in case of emergencies , but there are other ways .'),
     ('prep_in_front_of', '[occur,him] In the very last dream , he witnesses three deaths that occur in front of him .'),
     ('prep_in_lieu_of',
-     u"[drugs,language] If educators took a poll of students ' choices , would they teach sex , drugs and rock n'roll in lieu of language and math ?"),
+     "[drugs,language] If educators took a poll of students ' choices , would they teach sex , drugs and rock n'roll in lieu of language and math ?"),
     ('prep_in_place_of',
      '[are,land] The massive barriers of China forced people to live on the east side of China , because many of the places in China are ethier inhabitable , or that there are ethier platus , moutains , deserts , or basins in place of clear land for people to live on it .'),
     ('prep_in_spite_of',
@@ -268,10 +267,10 @@ GRAMMATICAL_RELATIONS = [
      '[venture,settlements] This caused wolves to venture near human settlements more often , looking for some kind of nourishment .'),
     (
         'prep_next',
-        u"[years,November] `` Five years next November '' -LRB- 87 -RRB- he told Daisy when they met again ."),
+        "[years,November] `` Five years next November '' -LRB- 87 -RRB- he told Daisy when they met again ."),
     ('prep_next_to',
      '[bed,husband] She wakes up one morning and sees the plastic toy then throws it on the bed next to her husband to try and scare him .'),
-    ('prep_not', u"[are,wow] '' Not `` wow , there are so many ways to waste this empty space !"),
+    ('prep_not', "[are,wow] '' Not `` wow , there are so many ways to waste this empty space !"),
     ('prep_notwithstanding',
      "[fights,obedience] '' Notwithstanding her obedience , Janie fights with her husband internally , as she can never express to him who she really is ."),
     ('prep_of', "[Analysis,An] Analysis of Nicola Monaghan 's The Killing Jar An engaging read ."),
@@ -302,10 +301,10 @@ GRAMMATICAL_RELATIONS = [
     ('prep_per',
      '[spend,month] Your credit score along with your available income will determine what kind of interest rate you will have and how much money you can spend per month on a house payment .'),
     ('prep_previous_to',
-     u"[part,sentence] It seems these changes are mainly due to feeling more appreciated and more as though she is part of the community '' previous to her prison sentence she felt bored and alone ; now however , she has friends and her days are filled with useful tasks ."),
+     "[part,sentence] It seems these changes are mainly due to feeling more appreciated and more as though she is part of the community '' previous to her prison sentence she felt bored and alone ; now however , she has friends and her days are filled with useful tasks ."),
     ('prep_prior_to',
      "[loyal,epiphany] Prior to their epiphany , Sambo and Quimbo were fiercely loyal to their master , to the extent that the term `` Sambo '' is now a literary allusion for an obedient and non-questioning slave ."),
-    ('prep_provided', u'[symbolizes,that] Provided that , a dictatorial government symbolizes Jack .'),
+    ('prep_provided', '[symbolizes,that] Provided that , a dictatorial government symbolizes Jack .'),
     ('prep_regarding',
      '[rules,revenge] Kez will not touch heroin and there are rules regarding revenge and joyriding .'),
     ('prep_regardless_of',
@@ -316,7 +315,7 @@ GRAMMATICAL_RELATIONS = [
     ('prep_starting',
      "[blacks,schools] -RRB- `` carpetbaggers '' from the North -LRB- supposedly their just to make a buck , though in fact MOST of them were quite honest and sacrificed and worked hard to rebuild the South , including the recently freed blacks , starting schools , etc -RRB- and blacks -LRB- esp ."),
     ('prep_subsequent_to',
-     u"[started,vision] Subsequent to Hans ' vision for his son to become a lawyer , Martin started learning about law in 1505 ."),
+     "[started,vision] Subsequent to Hans ' vision for his son to become a lawyer , Martin started learning about law in 1505 ."),
     ('prep_such_as',
      "[life,death] '' If , after you buy your home and something happens in your life such as a death or illness or the loss of a job , you may be forced to dip into your savings reserve ."),
     ('prep_symbolizes',
@@ -325,7 +324,7 @@ GRAMMATICAL_RELATIONS = [
     ('prep_thanks_to',
      '[was,spirits] There were many exciting things about this book , in the end the most exciting part in the book was when scrooge became a complete different person then he ever was all thanks to the spirits .'),
     ('prep_though',
-     u'[shows,use] The reason why the title is significant because in one line it demonstrates the depth of the conflict between the people and their country , though the use of style in grammar and vocabulary it essentially shows the theme and tone and helps the reader have an idea of what the book is about .'),
+     '[shows,use] The reason why the title is significant because in one line it demonstrates the depth of the conflict between the people and their country , though the use of style in grammar and vocabulary it essentially shows the theme and tone and helps the reader have an idea of what the book is about .'),
     (
         'prep_through',
         '[layered,spelling] The reader hears the accent and so much is layered through altered spelling .'),
@@ -363,7 +362,7 @@ GRAMMATICAL_RELATIONS = [
     ('prep_with',
      '[exchanges,neighbor] She describes her spiral from a five year old Kerrie-Ann having intelligent exchanges with a neighbor , into a playground drug dealing Kez and a horrific revenger .'),
     ('prep_with_regard_to',
-     u'[many,use] With regard to the use of plastic as a packaging material for food and drinks , the advantages are many .'),
+     '[many,use] With regard to the use of plastic as a packaging material for food and drinks , the advantages are many .'),
     ('prep_with_respect_to',
      '[cause,smokers] With respect to smokers , one individual smoking is not the cause of inconveniences and additional costs ; the accumulations of all the smokers present the issues .'),
     ('prep_within',
@@ -372,11 +371,11 @@ GRAMMATICAL_RELATIONS = [
     ('prep_worth',
      '[remember,life] All Americans remember the tragedy of September 11 , 2001 that happened so sudden , but probably not all understand how much worth the life of one person .'),
     ('prepc_about', '[ideas,prevent] Here are some of my ideas about how to prevent foreclosure .'),
-    ('prepc_above', u'[is,having] If a Reverend and farmer can embody pride , then no one is above having it .'),
+    ('prepc_above', '[is,having] If a Reverend and farmer can embody pride , then no one is above having it .'),
     ('prepc_according_to',
      "[see,Berger] According to Berger '' The way we see things is affected by what we know or what we believe '' and `` We never look at just one thing ; we are always looking at the relation between things and ourselves '' ."),
     ('prepc_across',
-     u'[getting,one] Text messaging might be an easier and efficient way of getting a message across but it has been one of the top ten reasons why teens are being killed on the road .'),
+     '[getting,one] Text messaging might be an easier and efficient way of getting a message across but it has been one of the top ten reasons why teens are being killed on the road .'),
     ('prepc_after',
      '[expected,beaten] After being beaten and shocked in front of a crowd of jeering and drunk white people the narrator is expected to make the speech , after which he receives a college scholarship and the briefcase .'),
     ('prepc_against',
@@ -412,35 +411,35 @@ GRAMMATICAL_RELATIONS = [
     ('prepc_beneath',
      '[is,angels] The chain of being is where god is at the top , beneath god are angels and then kings followed by humans and animals etc.'),
     ('prepc_besides',
-     u"[have,having] His advice on success in the food God bless the child that has his own service industry is `` besides having good food you must have everything else to go with it '' the cleanliness , the service , and the hospitality ."),
+     "[have,having] His advice on success in the food God bless the child that has his own service industry is `` besides having good food you must have everything else to go with it '' the cleanliness , the service , and the hospitality ."),
     ('prepc_between',
      "[choice,good] Finally , at the end of the novel in Part Three , Alex is `` cured '' and has reverted back to his previous state of having a choice between being good or evil , thus acquiring that sense of free will once more ."),
     ('prepc_but',
-     u'[oil,suffering] For example , in Africa there are some countries which have oil but they still suffering for poverty . So beside natural resources what can lead a country to touch the richness ?'),
+     '[oil,suffering] For example , in Africa there are some countries which have oil but they still suffering for poverty . So beside natural resources what can lead a country to touch the richness ?'),
     ('prepc_by',
      '[see,examining] By examining these values , beliefs , and desires communicated through the advertisements we see the many different ways that advertisers use to persuade their audience .'),
     ('prepc_close_to',
-     u"[come,killing] The other people in the book think he 's supposed to be the savior of the kingdom , yet he ca n't even come close to killing Grendel and when he does attempt to kill Grendel , Grendel just laughs and teases him ."),
+     "[come,killing] The other people in the book think he 's supposed to be the savior of the kingdom , yet he ca n't even come close to killing Grendel and when he does attempt to kill Grendel , Grendel just laughs and teases him ."),
     ('prepc_compared_to',
-     u"[portrayed,portrayed] He did n't change much from how he was portrayed in Beowulf compared to how he was portrayed in Grendel , but this is because Unferth 's encounter with Grendel consumes him completely into this idea of revenge ."),
+     "[portrayed,portrayed] He did n't change much from how he was portrayed in Beowulf compared to how he was portrayed in Grendel , but this is because Unferth 's encounter with Grendel consumes him completely into this idea of revenge ."),
     ('prepc_depending_on',
-     u'[affect,placed] However , depending on where the turbines are placed , they can affect television and radio signals .'),
+     '[affect,placed] However , depending on where the turbines are placed , they can affect television and radio signals .'),
     ('prepc_despite',
      "[experience,executing] Despite executing Tom 's crucifixion , Sambo and Quimbo experience an epiphany during Tom 's death throes ."),
     ('prepc_due_to',
-     u"[burglaries,malfunctioning] At first , this seemed like the ideal status-booster for Bury St. Edmunds , but already `` arc '' is falling into disrepair : the once magnificent Debenhams department store , constructed with glass walls and a delicate metal structure , has had nearly all of the windows smashed out , as well as several burglaries due to malfunctioning security cameras ."),
+     "[burglaries,malfunctioning] At first , this seemed like the ideal status-booster for Bury St. Edmunds , but already `` arc '' is falling into disrepair : the once magnificent Debenhams department store , constructed with glass walls and a delicate metal structure , has had nearly all of the windows smashed out , as well as several burglaries due to malfunctioning security cameras ."),
     ('prepc_during',
-     u"[sang,slavery] '' During slavery many slaves sang songs to express how they felt as well as to communicate messages to one another ."),
+     "[sang,slavery] '' During slavery many slaves sang songs to express how they felt as well as to communicate messages to one another ."),
     ('prepc_except',
      '[merged,share] Herzog merged the two together by creating a two-storey house with a conservatory attached , except that both elements share the same roofline .'),
     ('prepc_far_from',
-     u'[is,being] The world within the plays of Agamemnon and The Libation Bearers seems just to the people who live in it because this is how they handle all situations that surface , but from an outsiders view , their world is very far from being just .'),
+     '[is,being] The world within the plays of Agamemnon and The Libation Bearers seems just to the people who live in it because this is how they handle all situations that surface , but from an outsiders view , their world is very far from being just .'),
     ('prepc_for', '[think,spend] There is something to think about for what we should spend money on .'),
     ('prepc_from',
      '[stop,prejudice] This brings out that because of the fact that prejudice comes in both ways it is almost impossible to stop people from being prejudice .'),
     ('prepc_if', "[rewarded,did] '' If you did good things in life that means that you will get rewarded ."),
     ('prepc_immediately',
-     u'[shows,blaming] -LRB- 21 -RRB- Immediately blaming the government , Crane shows realism by metaphorically allegorizing the physical barrier of the regiment to the strict and rigid rules of the army .'),
+     '[shows,blaming] -LRB- 21 -RRB- Immediately blaming the government , Crane shows realism by metaphorically allegorizing the physical barrier of the regiment to the strict and rigid rules of the army .'),
     ('prepc_in',
      '[poetry,call] Sculpture is like poetry in that call forth certain feelings , certain emotions that function within our heart .'),
     ('prepc_in_addition_to',
@@ -448,7 +447,7 @@ GRAMMATICAL_RELATIONS = [
     ('prepc_including',
      '[life,losing] Frost grew up in rural New England in the early twentieth century and experienced many hardships in his life including losing his father at the young age of eleven and losing two children at very young ages .'),
     ('prepc_inside',
-     u'[sitting,playing] He tries to influence his audience that there is more to life than sitting inside playing video games , and watching television while our children grow up with little appreciation for nature and what it means .'),
+     '[sitting,playing] He tries to influence his audience that there is more to life than sitting inside playing video games , and watching television while our children grow up with little appreciation for nature and what it means .'),
     ('prepc_instead_of',
      "[eat,going] Here are some saving tips that can help you with a budget : '' You can eat at home instead of going to a restaurant ."),
     ('prepc_into',
@@ -456,16 +455,16 @@ GRAMMATICAL_RELATIONS = [
     ('prepc_land', '[agriculture,use] agriculture -RRB- and land use change -LRB- e.g.'),
     ('prepc_like', '[is,looking] It is like looking out a frosted window and not seeing a clear picture .'),
     ('prepc_next',
-     u'[generation,raised] It is not surprising that this generation next being raised on these influences attitudes is not flexible when it comes to gender roles , racism , and responsibilities .'),
+     '[generation,raised] It is not surprising that this generation next being raised on these influences attitudes is not flexible when it comes to gender roles , racism , and responsibilities .'),
     ('prepc_of',
      "[robbed,may] They are neglected , Kez is abused by adults and robbed of what some may term a `` normal '' childhood , yet the life that she lives has its own measure of right and wrong ."),
     ('prepc_off',
-     u'[borrows,Charlie] He borrows money off Charlie his friend and goes home with the money saying he has had a wage which shows he lies to his family .'),
+     '[borrows,Charlie] He borrows money off Charlie his friend and goes home with the money saying he has had a wage which shows he lies to his family .'),
     ('prepc_off_of',
-     u"[got,mayor] The relationship started off great between the two of them , but things started to change when Joe 's head got big off of him being mayor and all the power he had ."),
+     "[got,mayor] The relationship started off great between the two of them , but things started to change when Joe 's head got big off of him being mayor and all the power he had ."),
     ('prepc_on',
      "[hit,laughing] '' That moment for me is always hit bang on when I 'm outside laughing , making snow angels with the ones I love ."),
-    ('prepc_on_top_of', u'[has,having] On top of having to be alone , he also has to continue living with the guilt .'),
+    ('prepc_on_top_of', '[has,having] On top of having to be alone , he also has to continue living with the guilt .'),
     ('prepc_out',
      '[worked,durring] For the next 2000 years , the ideas that would effect the Chinese civilization , was worked out durring the HAN Dynasty .'),
     ('prepc_out_of',
@@ -870,7 +869,7 @@ class TagType(str):
         :return:
         :rtype:
         """
-        assert isinstance(wordNetType, (WNType, types.NoneType))
+        assert isinstance(wordNetType, (WNType, type(None)))
         self.wordNetType = wordNetType
 
 
@@ -911,7 +910,7 @@ class DepType(str):
         """
         :rtype : frozenset
         """
-        return frozenset(imap(DepType.fromString, self._equivalents))
+        return frozenset(map(DepType.fromString, self._equivalents))
 
     def getGeneralType(self):
         '''
@@ -994,7 +993,7 @@ class CDepConst:
         :rtype : DepType
         '''
         if cls._H_BY_NAME is None:
-            cls._H_BY_NAME = {str(t[1]): t[1] for t in cls.__dict__.iteritems() if not t[0].startswith('_')}
+            cls._H_BY_NAME = {str(t[1]): t[1] for t in cls.__dict__.items() if not t[0].startswith('_')}
         return cls._H_BY_NAME.get(dep, DepType(dep))
 
     PRED = DepType('pred')
@@ -1092,7 +1091,7 @@ def recurs_GR_hier(tree):
         if isinstance(gr, tuple):
             hR = recurs_GR_hier(gr)
             ##Adding all children
-            for v in hR.itervalues():
+            for v in hR.values():
                 hMainGRs[tree[i - 1]] |= v
             hMainGRs.update(hR)
         else:

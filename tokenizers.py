@@ -13,9 +13,7 @@ __author__ = 'ASU'
 creReplaceNLs = re.compile(r'[\n\r\t\s]+')
 
 
-class TextTokenizer(object):
-    __metaclass__ = ABCMeta
-
+class TextTokenizer(object, metaclass=ABCMeta):
     @abstractmethod
     def tokenizeText(self, text):
         pass

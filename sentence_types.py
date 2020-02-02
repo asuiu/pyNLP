@@ -179,7 +179,7 @@ class SyntNode(object):
         """
         Returns int() - index in children's list of node
         """
-        for i in xrange(len(self.children)):
+        for i in range(len(self.children)):
             if self.children[i] == node:
                 return i
         return -1
@@ -209,7 +209,7 @@ class SyntNode(object):
             return memo[id(self)]
         cp = copy.copy(self)
         memo[id(self)] = cp
-        for k, v in self.__dict__.iteritems():
+        for k, v in self.__dict__.items():
             setattr(cp, k, copy.deepcopy(v, memo))
         return cp
 
@@ -298,9 +298,9 @@ class PhraseNode(SyntNode):
             if isinstance(node, SyntWordNode):
                 pass
             else:
-                if len(filter(lambda x: isinstance(x, SyntWordNode) and x.tag == tag, node.children)):
+                if len([x for x in node.children if isinstance(x, SyntWordNode) and x.tag == tag]):
                     rl.append(node)
-                q.extend(reversed(filter(lambda n: n.isPhrasal, node.children)))
+                q.extend(reversed([n for n in node.children if n.isPhrasal]))
                 ##if
         ##while
         return rl
@@ -376,7 +376,7 @@ class SyntWordNode(SyntNode):
         :type parent: PhraseNode or SpinablePhraseNode or unknown
         """
         assert isinstance(tag, TagType)
-        assert isinstance(word, basestring)
+        assert isinstance(word, str)
         assert word is not None
         SyntNode.__init__(self, tag, level, jNode, tree, _tree_index, parent)
         self._word = word
@@ -459,7 +459,7 @@ class GrammDep(tuple):
         :type t: ( DepType, SyntWordNode, SyntWordNode )
         """
         assert len(t) == 3
-        assert isinstance(t[0], basestring)
+        assert isinstance(t[0], str)
         r = t[0]
         if not isinstance(t[0], DepType):
             r = DepType.fromString(t[0])
@@ -577,11 +577,14 @@ class AbstractSyntacticTree(object):
                 q.extend(reversed(node.children))
         return s
 
+    def toJson(self):
+        j = Json()
+        self.root.toJson()
+        return j
 
-class AbstractParser(object):
+
+class AbstractParser(object, metaclass=ABCMeta):
     """Base class for Parser classes"""
-
-    __metaclass__ = ABCMeta
 
     @abstractmethod
     def parse(self, text):
@@ -591,9 +594,7 @@ class AbstractParser(object):
         return self.parse(*args, **kwrds)
 
 
-class AbstractParsedSentence:
-    __metaclass__ = ABCMeta
-
+class AbstractParsedSentence(metaclass=ABCMeta):
     @abstractmethod
     def __str__(self):
         """

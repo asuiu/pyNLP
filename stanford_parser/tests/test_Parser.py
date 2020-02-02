@@ -22,7 +22,7 @@ class TestParser(TestCase):
     def test_nominalParse(self):
         text = "My dog likes sausages"
         tree = self._parser.parse(text)
-        self.assertEqual(tree.toString(), u'(ROOT (S (NP (PRP$ My) (NN dog)) (VP (VBZ likes) (NP (NNS sausages)))))')
+        self.assertEqual(tree.toString(), '(ROOT (S (NP (PRP$ My) (NN dog)) (VP (VBZ likes) (NP (NNS sausages)))))')
 
     def test_ParseToDependencies(self):
         text = "Pick up the tire pallet next to the truck. He smelled that the price will go up."
@@ -33,7 +33,7 @@ class TestParser(TestCase):
         tupleResult = [(rel, gov.word, dep.word) for rel, gov, dep in dependencies]
 
         self.assertEqual(tupleResult,
-                         [('root', u'.', u'Pick'),
+                         [('root', '.', 'Pick'),
                           ('prt', 'Pick', 'up'),
                           ('det', 'pallet', 'the'),
                           ('nn', 'pallet', 'tire'),
