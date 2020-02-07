@@ -75,21 +75,48 @@ class CWordDependencies:
         return self._aSlaveDeps
 
 
+class SyntToken(object):
+    
+    def __init__(self, text: str, tag: TagType, idx: int):
+        assert isinstance(tag, TagType)
+        self._tag = tag
+        self._text = text
+        self._idx = idx
+    
+    @property
+    def tag(self) -> TagType:
+        return self._tag
+    
+    @property
+    def text(self) -> str:
+        return self._text
+    
+    @property
+    def idx(self):
+        return self._idx
+    
+    def toJson(self):
+        return Json({'tag': self.tag, 'text': self.text})
+
+
+class SyntWordToken(SyntToken):
+    
+    def __init__(self, text: str, tag: TagType, idx: int, stemmed: str):
+        super().__init__(text, tag, idx)
+        self._stemmed = stemmed
+    
+    @property
+    def stemmed(self):
+        return self._stemmed
+
+
 class SyntNode(object):
     @property
-    def tag(self):
-        '''
-        :return:
-        :rtype: TagType
-        '''
+    def tag(self) -> TagType:
         return self._tag
 
     @tag.setter
-    def tag(self, value):
-        '''
-        :param value:
-        :type value: TagType
-        '''
+    def tag(self, value: TagType):
         assert isinstance(value, TagType)
         self._tag = value
 
@@ -194,15 +221,6 @@ class SyntNode(object):
     def __hash__(self):
         return hash(id(self))
 
-    def __cmp__(self, other):
-        return cmp(id(self), id(other))
-        # def __del__(self):
-        # """
-        # Avoiding Circular references while garbage collecting
-        # """
-        ##if len(self): #also called when destroying class object
-        # self.tree = None
-
     def __deepcopy__(self, memo):
         """"""
         if id(self) in memo:
@@ -215,6 +233,9 @@ class SyntNode(object):
 
     def __getitem__(self, item):
         raise NotImplementedError("Not implemented getitem of SyntNode")
+    
+    def toJson(self):
+        return Json({'tag': self.tag})
 
 
 class PhraseNode(SyntNode):

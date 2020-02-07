@@ -8,7 +8,7 @@ from os.path import join, normpath
 from unittest import TestCase, main
 
 import stanford_parser.parser as parser
-from tokenizers import DefaultTextTokenizer
+from tokenizers import NLTKTokenizer
 
 __author__ = 'ASU'
 
@@ -26,7 +26,7 @@ class TestParser(TestCase):
 
     def test_ParseToDependencies(self):
         text = "Pick up the tire pallet next to the truck. He smelled that the price will go up."
-        sentences = parser.StanfordParser(DefaultTextTokenizer(), self._parser).parse(text)
+        sentences = parser.StanfordParser(NLTKTokenizer(), self._parser).parse(text)
 
         dependencies = sentences[0].dependencies
 

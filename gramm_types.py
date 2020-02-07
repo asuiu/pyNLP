@@ -1,6 +1,6 @@
-import types
-
 __author__ = 'ASU'
+
+from typing import Optional, Union
 
 GRAMMATICAL_RELATIONS = [
     ('pred', 'predicate'),
@@ -62,7 +62,7 @@ GRAMMATICAL_RELATIONS = [
     ('conj', 'conj_collapsed'),
     ('prep', 'prep_collapsed'),
     ('prepc', 'prepc_collapsed'),
-
+    
     ('conj_+',
      "[subject,verb] '' One peculiar thing about the grammar on the title is that instead of being just a normal independent clause , which is subject + verb it turns out to be verb + subject ."),
     ('conj_and',
@@ -852,23 +852,11 @@ STEM_EXCEPTIONS = {
 
 
 class TagType(str):
-    def __new__(cls, tagType, wordNetType=None):
-        """
-        :tagType tagType: str
-        :tagType wordNetType: WNType | None
-        """
+    def __new__(cls, tagType: Optional[Union['WNType', str]], wordNetType: Optional[str] = None):
         obj = super(TagType, cls).__new__(cls, str(tagType))
         return obj
-
-    def __init__(self, tagType, wordNetType=None):
-        """
-        :param tagType:
-        :type tagType: str
-        :param wordNetType:
-        :type wordNetType: str
-        :return:
-        :rtype:
-        """
+    
+    def __init__(self, tagType: Optional[Union['WNType', str]], wordNetType: Optional[str] = None):
         assert isinstance(wordNetType, (WNType, type(None)))
         self.wordNetType = wordNetType
 
@@ -1103,10 +1091,7 @@ H_GRAMMATICAL_RELATION_PARSED_HIERARCHY = recurs_GR_hier(GR_HIERARCHY)
 
 
 class WNType(str):
-    def __new__(cls, type):
-        """
-        :type type: str
-        """
+    def __new__(cls, type: str):
         return super(WNType, cls).__new__(cls, str(type))
 
 
@@ -1122,18 +1107,21 @@ class CTags:
     '''
     List of Penn TreeBank POS tags
     '''
-
+    
     @classmethod
     def fromString(cls, s):
-        if s == s.upper() and s in cls.__dict__:
-            return cls.__dict__[s]
+        d = {str(v): v for v in cls.__dict__.values() if isinstance(v, TagType)}
+        if s in d:
+            return d[s]
         else:
             return TagType(s)
-
+    
     @classmethod
-    def isWordType(cls, tag):
-        return tag == tag.upper() and tag in set(cls.__dict__.keys()) - {'CD', 'LS', 'SYM', 'UH'}
-
+    def isWordType(cls, tag:str):
+        d = {str(v) for v in cls.__dict__.values() if isinstance(v, TagType)}
+        return tag == tag.upper() and str(tag) in d - {'CD', 'LS', 'SYM', 'UH'}
+        #return tag == tag.upper() and tag in set(cls.__dict__.keys()) - {'CD', 'LS', 'SYM', 'UH'}
+    
     """Coordinating conjunction"""
     CC = TagType("CC")
     """Cardinal number"""

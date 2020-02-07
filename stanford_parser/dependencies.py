@@ -71,7 +71,7 @@ class StanfordDependencyHierarchy:
         while len(activeSet) != 0:
             newActiveSet = []
             for item in activeSet:
-                for key, mapValue in item.iteritems():
+                for key, mapValue in list(item.items()):
                     self.flatMap[key] = mapValue
                     self.parentToChildren[key] = sorted(list(mapValue.keys()))
                     newActiveSet.append(mapValue)
@@ -80,15 +80,15 @@ class StanfordDependencyHierarchy:
 
         self.ancestorToDescendents = {}
 
-        for key, mapValue in self.flatMap.iteritems():
+        for key, mapValue in list(self.flatMap.items()):
             descendents = []
 
             activeSet = [mapValue]
             while len(activeSet) != 0:
                 newActiveSet = []
                 for item in activeSet:
-                    for childKey, val in item.iteritems():
-                        newActiveSet.extend(val.values())
+                    for childKey, val in list(item.items()):
+                        newActiveSet.extend(list(val.values()))
                         descendents.append(childKey)
                 activeSet = newActiveSet
 

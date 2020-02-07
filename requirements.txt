@@ -1,0 +1,5 @@
+pyxtension
+jpype1==0.6.3 # The 0.7.1 version is buggy: https://github.com/jpype-project/jpype/issues/573
+nltk
+spacy
+en_core_web_sm
