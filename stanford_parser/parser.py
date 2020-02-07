@@ -11,6 +11,7 @@ import os
 import platform
 import re
 import sys
+
 from pyxtension.Json import Json
 from pyxtension.streams import slist
 
@@ -36,7 +37,7 @@ def fReduceSpaces(x): return creReplaceNLs.sub(r' ', x)
 class JClasses:
     MAIN_JAR_NAME = "stanford-parser.jar"
     MODELS_JAR_NAME = "stanford-parser-2.0.5-models.jar"
-
+    
     def __init__(self):
         self._initialized = False
         self.JMaxentTagger = None
@@ -46,11 +47,11 @@ class JClasses:
         self.JStringReader = None
         self.JDocumentProcessor = None
         self.JString = None
-
+    
     def init(self, home, jvm_memory="20G"):
         if self._initialized:
             return
-
+        
         if _JAVA:
             sys.path.append(os.path.join(home, self.MAIN_JAR_NAME))
             from edu.stanford.nlp.tagger.maxent import MaxentTagger as JMaxentTagger
@@ -89,7 +90,7 @@ class JClasses:
             self.JDocumentProcessor = jpype.JClass("edu.stanford.nlp.process.DocumentPreprocessor")
             self.JString = jpype.JClass("java.lang.String")
             # self.JMaxentTagger = jpype.JClass("edu.stanford.nlp.tagger.maxent.MaxentTagger")
-
+        
         self._initialized = True
 
 
@@ -101,7 +102,7 @@ class MaxEntTagger:
     Not compatible with CoreNLP 2.x
     """
     TAGGER_MODEL_FILE_NAME = "english-bidirectional-distsim.tagger"
-
+    
     def __init__(self, stanford_home):
         tagger_model_path = os.path.join(stanford_home, self.TAGGER_MODEL_FILE_NAME)
         _JClasses.init(stanford_home)
@@ -110,7 +111,7 @@ class MaxEntTagger:
         except Exception as e:
             logging.exception("Can not instantiate MaxentTagger with %s" % str(tagger_model_path))
             raise e
-
+    
     # ----------------------------------------------------------------------
     def tagTokenizedString(self, toTag):
         """
@@ -127,7 +128,7 @@ class MaxEntTagger:
         :rtype: basestring
         """
         return self.tagger.tagTokenizedString(toTag)
-
+    
     def tagString(self, s):
         """
         Tags the input string and returns the tagged version.
@@ -155,7 +156,7 @@ class Parser:
         self.parser.setOptionFlags(["-retainTmpSubcategories"])
         self.morphology = _JClasses.JMorphology
         self.englishGrammaticalStructure = _JClasses.JEnglishGrammaticalStructure
-
+    
     @staticmethod
     def segment_text(text):
         """
@@ -173,7 +174,7 @@ class Parser:
             tokens = []
             for idx in range(sentence_array.size()):
                 token = sentence_array[idx].toString()
-
+                
                 old_token = ""
                 while old_token != token:
                     old_token = token
@@ -182,7 +183,7 @@ class Parser:
                 tokens.append(token)
             sentences.append(' '.join(tokens))
         return sentences
-
+    
     def parse(self, sentence):
         """
         Parses the sentence string, returning the tokens, and the parse tree as a tuple.
@@ -209,18 +210,18 @@ class StanfordParsedSentence(AbstractParsedSentence):
         self._tree = _tree
         self._wNodes = _wNodes
         self._dependency_wNodes = _dependency_wNodes
-
+    
     @property
     def best_tree(self):
         return self.getBestTree()
-
+    
     @property
     def tagged_text(self):
         """
         :rtype : slist[ SyntWordNode ]
         """
         return self._wNodes
-
+    
     @property
     def dependencies(self):
         """
@@ -228,33 +229,33 @@ class StanfordParsedSentence(AbstractParsedSentence):
         :rtype : list[ GrammDep ]
         """
         return self.getDependencies()
-
+    
     def getDependencies(self):
         """
         :rtype : list[ GrammDep ]
         """
         return self._dependency_wNodes
-
+    
     def getTaggedText(self):
         return self._wNodes
-
+    
     def getBestTree(self):
         """
         :return: Returns the list of best parsed syntactical trees of the paper
         :rtype: AbstractSyntacticTree
         """
         return self._tree
-
+    
     def __str__(self):
         """
         When is called str(object) - this method is called
         :rtype : str
         """
         return self._text
-
+    
     def __repr__(self):
         return str({"instanceType": "StanfordParsedSentence", "val": self.__str__()})
-
+    
     @property
     def words(self):
         """
@@ -262,9 +263,9 @@ class StanfordParsedSentence(AbstractParsedSentence):
         :return: stream[str]
         :rtype: stream[ str ]
         """
-
+        
         return self.tagged_text.filter(lambda swn: swn.tag in STANFORD_WORD_TAGS).map(StanfordParsedSentence._toWord)
-
+    
     def toJson(self):
         """
         :return:
@@ -274,7 +275,6 @@ class StanfordParsedSentence(AbstractParsedSentence):
         j.text = self._text
         j.tree = self._tree.toJson()
         j.dependencies = self.dependencies.toJson()
-
 
 
 class StanfordSyntacticTree(AbstractSyntacticTree):
@@ -293,8 +293,8 @@ class StanfordSyntacticTree(AbstractSyntacticTree):
             gi = dependency.gov().index() - 1
             di = dependency.dep().index() - 1
             self._sent_dep_wNodes.append(
-                    GrammDep((DepType.fromString(str(dependency.reln())), self.aWordNodes[gi], self.aWordNodes[di])))
-
+                GrammDep((DepType.fromString(str(dependency.reln())), self.aWordNodes[gi], self.aWordNodes[di])))
+    
     def iterativeParse_jTree(self, jTree, sfp):
         """
         Parses the Tree object from JVM into Python VM
@@ -309,12 +309,12 @@ class StanfordSyntacticTree(AbstractSyntacticTree):
         """:type : CPhraseNode"""
         level += 1  # only root is level 0
         tree_index += 1
-
+        
         q = []
         for c in jTree.children():
             q.append((c, ptree, level))
         q = list(reversed(q))
-
+        
         hWordsPositions = {}
         while len(q):
             node = q.pop()
@@ -333,12 +333,12 @@ class StanfordSyntacticTree(AbstractSyntacticTree):
                 if _wrd is None:
                     raise Exception("wtag returned by stemmer returns NULL word() for word %s and tag %s: %s %s" % (
                         word, tag, str(wtag), str(wtag.__class__)))
-
+                
                 if wtag.word().lower() in STEM_EXCEPTIONS:
                     stemmed = STEM_EXCEPTIONS[wtag.word().lower()]
                 else:
                     stemmed = wtag.word().lower()
-
+                
                 w_pos = (int(w_label.beginPosition()), int(w_label.endPosition()))
                 nt = self._constructWordNode(word, CTags.fromString(tag), stemmed, level, w_pos, node, self, tree_index,
                                              wh_add)
@@ -359,7 +359,7 @@ class StanfordSyntacticTree(AbstractSyntacticTree):
         """:type : list[SyntWordNode]"""
         for i in range(len(wNodes)):
             wNodes[i].set_position(i)
-
+        
         return ptree, wNodes
 
 
@@ -367,7 +367,7 @@ class StanfordParser(AbstractParser):
     """
     The class for parsing papers using Stanford Parser
     """
-
+    
     # ----------------------------------------------------------------------
     def __init__(self, textTokenizer, parser_obj, maxSentenceLength=DEFAULT_MAX_SENTENCE_LENGTH):
         """
@@ -383,17 +383,17 @@ class StanfordParser(AbstractParser):
         self._tokenizer = textTokenizer
         self._CEnglishGrammaticalStructure = None
         self._morphology = None
-
+    
     @property
     def _parser(self):
         return self._parser_obj
-
+    
     @property
     def CEnglishGrammaticalStructure(self):
         if self._CEnglishGrammaticalStructure is None:
             self._CEnglishGrammaticalStructure = self._parser.englishGrammaticalStructure
         return self._CEnglishGrammaticalStructure
-
+    
     @property
     def stem(self):
         if self._morphology is None:
@@ -401,7 +401,7 @@ class StanfordParser(AbstractParser):
             # callable
             assert callable(self._morphology.stemStaticSynchronized)
         return self._morphology.stemStaticSynchronized
-
+    
     def parse(self, text):
         """
         :type text: str
@@ -415,7 +415,7 @@ class StanfordParser(AbstractParser):
         except Exception:
             logging.error("Stanford Sentence Segmentation failed. Used nltk instead.")
             sentences = self._tokenizer.tokenizeText(text)
-
+        
         aSentences = []
         for sent in sentences:
             sent = fReduceSpaces(sent)
@@ -423,7 +423,7 @@ class StanfordParser(AbstractParser):
             if sent:
                 aSentences.append(sps)
         return aSentences
-
+    
     def parse_sentence(self, sent):
         """
         :type sent: basestring

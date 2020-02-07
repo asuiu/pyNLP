@@ -25,13 +25,13 @@ class CWordDependencies:
         assert isinstance(aDependencies, list)
         self._aGovDeps = slist([dp for dp in aDependencies if dp.gov.position == syntWord.position])
         self._aSlaveDeps = slist([dp for dp in aDependencies if dp.slave.position == syntWord.position])
-        self._hDeps = {'gov': defaultdict(list), 'slave': defaultdict(list),}
+        self._hDeps = {'gov': defaultdict(list), 'slave': defaultdict(list), }
         for dep, gov, slave in self._aGovDeps:
             self._hDeps['gov'][dep].append(slave)
         ###for
         for dep, gov, slave in self._aSlaveDeps:
             self._hDeps['slave'][dep].append(gov)
-
+    
     def getDeps(self, sDep, bGov=True):
         """
         returns
@@ -43,7 +43,7 @@ class CWordDependencies:
         if sDep in self._hDeps[dtype]:
             return self._hDeps[dtype][sDep]
         return None
-
+    
     def getEqDeps(self, depType, bGov=True):
         """
         :type depType: DepType
@@ -52,21 +52,20 @@ class CWordDependencies:
         """
         dtype = ('slave', 'gov')[bGov]
         hDeps = self._hDeps[dtype]
-
+        
         aRet = slist()
         for t in depType.equivalent_names:
             if t in hDeps:
                 aRet.extend(hDeps[t])
         return aRet or None
-
-
+    
     @property
     def govDeps(self):
         """
         :rtype : slist[GrammDep]
         """
         return self._aGovDeps
-
+    
     @property
     def slaveDeps(self):
         """
@@ -114,12 +113,12 @@ class SyntNode(object):
     @property
     def tag(self) -> TagType:
         return self._tag
-
+    
     @tag.setter
     def tag(self, value: TagType):
         assert isinstance(value, TagType)
         self._tag = value
-
+    
     level = int(0)
     _tree_index = int(-1)
     _tree = None
@@ -127,10 +126,10 @@ class SyntNode(object):
     tree = property(lambda self: self._tree)
     hasParent = property(lambda self: self._parent is not None)
     index = property(lambda self: self._tree_index)
-
+    
     def set_children(self, value):
         self._children = value
-
+    
     def isDescendantOf(self, parent_node):
         if 0: isinstance(parent_node, PhraseNode)
         p = self.parent
@@ -141,26 +140,26 @@ class SyntNode(object):
             p = p.parent
         ##while
         return False
-
+    
     def set_tree(self, value):
         self._tree = value
-
+    
     @property
     def isLeaf(self):
         return self._isLeaf
-
+    
     @property
     def isPhrasal(self):
         return self._isPhrasal
-
+    
     @property
     def isUnaryRewrite(self):
         return self._isUnaryRewrite
-
+    
     @property
     def isPreTerminal(self):
         return self._isPreTerminal
-
+    
     def __init__(self, tag, level, jNode, tree, _tree_index, parent=None):
         """
         :type tag: TagType
@@ -173,7 +172,7 @@ class SyntNode(object):
         assert isinstance(tag, TagType)
         self._tag = tag
         self.level = level
-
+        
         if jNode is not None:
             self._isLeaf = bool(jNode.isLeaf())
             self._isPhrasal = bool(jNode.isPhrasal())
@@ -184,24 +183,24 @@ class SyntNode(object):
             self._isPhrasal = None
             self._isUnaryRewrite = None
             self._isPreTerminal = None
-
+        
         self._tree = tree
         self._children = []
         if 0:   isinstance(parent, PhraseNode)
         self._parent = parent
         self._tree_index = _tree_index
-
+    
     @property
     def parent(self):
         """"""
         if 0:   isinstance(self._parent, PhraseNode)
         return self._parent
-
+    
     def addChild(self, node, index=-1):
         """"""
         # self._children.insert(index, node)
         self.tree.addChild(self, node, index)
-
+    
     def indexOf(self, node):
         """
         Returns int() - index in children's list of node
@@ -210,17 +209,17 @@ class SyntNode(object):
             if self.children[i] == node:
                 return i
         return -1
-
+    
     def __repr__(self):
         return repr((self.tag, self.level, self.children))
-
+    
     def __str__(self):
         # return str(self.__class__.__bases__[0].__repr__(self[:2]))
         return str(repr((self.tag, self.level)))
-
+    
     def __hash__(self):
         return hash(id(self))
-
+    
     def __deepcopy__(self, memo):
         """"""
         if id(self) in memo:
@@ -230,7 +229,7 @@ class SyntNode(object):
         for k, v in self.__dict__.items():
             setattr(cp, k, copy.deepcopy(v, memo))
         return cp
-
+    
     def __getitem__(self, item):
         raise NotImplementedError("Not implemented getitem of SyntNode")
     
@@ -240,17 +239,17 @@ class SyntNode(object):
 
 class PhraseNode(SyntNode):
     isPhrasal = property(lambda self: True)
-
+    
     def __init__(self, tag, level, jNode, tree, _tree_index, parent=None):
         SyntNode.__init__(self, tag, level, jNode, tree, _tree_index, parent)
         self.level = level
         self._tree = tree
-
+    
     @property
     def children(self):
         """"""
         return self._children
-
+    
     @staticmethod
     def tag_normalize(swn):
         """"""
@@ -261,7 +260,7 @@ class PhraseNode(SyntNode):
         else:
             return swn.word
             ##if
-
+    
     def toPhrase(self):
         """Returns the list of string words in the  DF parse of the tree starting from Node"""
         s = []
@@ -275,7 +274,7 @@ class PhraseNode(SyntNode):
                 ##if
         ##while
         return s
-
+    
     def toTaggedPhrase(self):
         """Returns the list of WordNodes in the  DF parse of the tree"""
         s = []
@@ -291,7 +290,7 @@ class PhraseNode(SyntNode):
                 ##if
         ##while
         return s
-
+    
     def findPhraseByTag(self, tag='NP'):
         """Returns a list of nodes(subtrees) that are of type <tag>"""
         rl = []
@@ -308,7 +307,7 @@ class PhraseNode(SyntNode):
                 ##if
         ##while
         return rl
-
+    
     def findPhraseContainingWordTag(self, tag):
         """Returns a list of nodes(subtrees) that contains Word tagged <tag> in direct children"""
         assert isinstance(tag, TagType)
@@ -325,7 +324,7 @@ class PhraseNode(SyntNode):
                 ##if
         ##while
         return rl
-
+    
     def deleteChild(self, child):
         """ Remove a child node if found """
         i = self.indexOf(child)
@@ -334,7 +333,7 @@ class PhraseNode(SyntNode):
             return True
         else:
             return False
-
+    
     def replaceChild(self, child, newNode):
         """ Replace the child node with the given one """
         i = self.indexOf(child)
@@ -343,7 +342,7 @@ class PhraseNode(SyntNode):
             return True
         else:
             return False
-
+    
     def insertChild(self, child, index=0):
         """ Insert a child node at the given index """
         self._children.insert(index, child)
@@ -357,33 +356,33 @@ class SyntWordNode(SyntNode):
         :rtype: str
         '''
         return self._word
-
+    
     @word.setter
     def word(self, val):
         if val is None:
             print("None!")
         self._word = val
-
+    
     _stemmed = str()
     """:type : str"""
-
+    
     @property
     def stemmed(self):
         return self._stemmed
-
+    
     _position = int()
     """:type : int"""
-
+    
     def set_position(self, val):
         self._position = val
-
+    
     @property
     def position(self):
         return self._position
-
+    
     isLeaf = property(lambda self: True)
     """:type : bool"""
-
+    
     def __init__(self, word, tag, stemmed, level, position, jNode, tree, _tree_index, parent=None):
         """ Constructor
         :type word: basestring
@@ -405,7 +404,7 @@ class SyntWordNode(SyntNode):
         self._stemmed = stemmed
         self._myDeps = None  # lazy evaluation
         isinstance(self._myDeps, CWordDependencies)
-
+    
     def getMyFirstPhraseOfType(self, sPhraseTag):
         """"""
         p = self.parent
@@ -416,13 +415,13 @@ class SyntWordNode(SyntNode):
             p = p.parent
         else:
             return None
-
+    
     def getMyPhrase(self):
         """"""
         # parent = self.parent
         if 0:   isinstance(self.parent, PhraseNode)
         return self.parent
-
+    
     def getFirstNegation(self):
         """ Return the negation SyntWordNode or None if it's not negated """
         neg_deps = self.myDeps.getDeps(CDepConst.NEG, True)
@@ -430,39 +429,39 @@ class SyntWordNode(SyntNode):
             return None
         # Get just the first one if there are multiple, very unlikely
         return neg_deps[0]
-
+    
     def getModifiers(self):
         """ Return the list of adverbial modifiers (advmod) """
         advmod_deps = self.myDeps.getDeps(CDepConst.ADVMOD, True)
         if isinstance(advmod_deps, list):
             return advmod_deps
-
+        
         return []
-
+    
     def getFirstDeterminant(self):
         """ Return the determinant of the word or None """
         determinant = self.myDeps.getDeps(CDepConst.DET, True)
         if isinstance(determinant, list):
             # Get just the first one if there are multiple, very unlikely
             return determinant[0]
-
+        
         return None
-
+    
     def __repr__(self):
         return repr((self.word, self.tag, self.stemmed, self.level))
-
+    
     def __str__(self):
         return self.toJson().toString()
-
+    
     def toJson(self):
         return Json({'word': self.word, 'tag': self.tag, 'stemmed': self.stemmed})
-
+    
     def __hash__(self):
         return hash(repr(self))
-
+    
     def __cmp__(self, other):
         return cmp(hash(self), hash(other))
-
+    
     @property
     def myDeps(self):
         """
@@ -488,28 +487,28 @@ class GrammDep(tuple):
         assert isinstance(t[1], SyntWordNode)
         assert isinstance(t[2], SyntWordNode)
         return super(GrammDep, cls).__new__(cls, (r, t[1], t[2]))
-
+    
     @property
     def type(self):
         """
         :rtype : DepType
         """
         return self[0]
-
+    
     @property
     def gov(self):
         """
         :rtype : SyntWordNode
         """
         return self[1]
-
+    
     @property
     def slave(self):
         """
         :rtype : SyntWordNode
         """
         return self[2]
-
+    
     @property
     def equivalent_dep_names(self):
         """
@@ -517,7 +516,7 @@ class GrammDep(tuple):
         :type self: (DepType, SyntWordNode, SyntWordNode )
         """
         return self[0].equivalent_names
-
+    
     @property
     def equivalent_dep_types(self):
         """
@@ -530,27 +529,27 @@ class GrammDep(tuple):
 class AbstractSyntacticTree(object):
     root = property(lambda self: self._root)
     """:type : PhraseNode"""
-
+    
     aWordNodes = property(lambda self: self._aWordNodes)
     """:type : slist[SyntWordNode]"""
-
+    
     sent_dep_wNodes = property(lambda self: self._sent_dep_wNodes)
     """:type : slist[GrammDep]"""
-
+    
     def _constructWordNode(self, *args, **kwargs):
         """
         :rtype : SyntWordNode
         """
         # Overwridable method, do not change in classmethod
         return SyntWordNode(*args, **kwargs)
-
+    
     def _constructPhraseNode(self, *args, **kwargs):
         """
         :rtype : PhraseNode
         """
         # Overwridable method, do not change in classmethod
         return PhraseNode(*args, **kwargs)
-
+    
     def __init__(self):
         """
         :type jTree: jpype._jclass.edu.stanford.nlp.trees.LabeledScoredTreeNode
@@ -558,7 +557,7 @@ class AbstractSyntacticTree(object):
         """
         self._aNodes = slist()
         self._sent_dep_wNodes = slist()
-
+    
     def addChild(self, node, child, index=-1):
         """
         :type node: PhraseNode
@@ -573,7 +572,7 @@ class AbstractSyntacticTree(object):
         else:
             node.children.append(child)
         return idx
-
+    
     # ----------------------------------------------------------------------
     def __deepcopy__(self, memo):
         # ToDo: document and cover with UnitTest
@@ -585,7 +584,7 @@ class AbstractSyntacticTree(object):
             setattr(cp, a, copy.deepcopy(getattr(self, a), memo.copy()))
         ##for
         return cp
-
+    
     def __str__(self):
         s = ''
         q = [self.root]
@@ -597,7 +596,7 @@ class AbstractSyntacticTree(object):
                 s += '\t' * node.level + str(node) + '\n'
                 q.extend(reversed(node.children))
         return s
-
+    
     def toJson(self):
         j = Json()
         self.root.toJson()
@@ -606,11 +605,11 @@ class AbstractSyntacticTree(object):
 
 class AbstractParser(object, metaclass=ABCMeta):
     """Base class for Parser classes"""
-
+    
     @abstractmethod
     def parse(self, text):
         pass
-
+    
     def __call__(self, *args, **kwrds):
         return self.parse(*args, **kwrds)
 
@@ -623,11 +622,11 @@ class AbstractParsedSentence(metaclass=ABCMeta):
         :rtype : str
         """
         pass
-
+    
     @abstractmethod
     def __repr__(self):
         pass
-
+    
     @staticmethod
     def _toWord(swn):
         '''
@@ -638,14 +637,14 @@ class AbstractParsedSentence(metaclass=ABCMeta):
         '''
         assert isinstance(swn, SyntWordNode)
         return swn.word
-
+    
     @abstractmethod
     def getTaggedText(self):
         """
         :rtype : slist[ SyntWordNode ]
         """
         pass
-
+    
     @abstractmethod
     def getBestTree(self):
         """
@@ -653,7 +652,7 @@ class AbstractParsedSentence(metaclass=ABCMeta):
         :rtype: AbstractSyntacticTree
         """
         pass
-
+    
     @abstractmethod
     def getDependencies(self):
         """

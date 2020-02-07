@@ -869,13 +869,13 @@ class DepType(str):
         :rtype: DepType
         """
         return CDepConst._fromString(type)
-
+    
     def __new__(cls, type):
         """
         :type type: str
         """
         return super(DepType, cls).__new__(cls, str(type))
-
+    
     def __init__(self, type):
         """
         :param type:
@@ -885,21 +885,21 @@ class DepType(str):
         if type in H_DEPENDENCY_EQUIVALENTS:
             s |= H_DEPENDENCY_EQUIVALENTS[type]
         self._equivalents = frozenset(s)
-
+    
     @property
     def equivalent_names(self):
         """
         :rtype : frozenset
         """
         return self._equivalents
-
+    
     @property
     def equivalent_types(self):
         """
         :rtype : frozenset
         """
         return frozenset(map(DepType.fromString, self._equivalents))
-
+    
     def getGeneralType(self):
         '''
         Returns
@@ -910,44 +910,44 @@ class DepType(str):
 
 class AgentDep(DepType):
     _equivalents = frozenset(('agent', 'nsubj', 'xsubj'))
-
+    
     def __getnewargs__(self, *args, **kwargs):
         """This override is added to enable proper unpickling of the object"""
         return tuple()
-
+    
     def __new__(cls):
         return DepType.__new__(cls, "agent")
-
+    
     def __init__(self):
         pass  # needed to override super init with arguments
 
 
 class XsubjDep(DepType):
     _equivalents = frozenset(('agent', 'nsubj', 'xsubj'))
-
+    
     def __getnewargs__(self, *args, **kwargs):
         """This override is added to enable proper unpickling of the object"""
         return tuple()
-
+    
     def __new__(cls, *args, **kwargs):
         assert not args and not kwargs
         return DepType.__new__(cls, "xsubj")
-
+    
     def __init__(self):
         pass  # needed to override super init with arguments
 
 
 class NsubjDep(DepType):
     _equivalents = frozenset(('agent', 'nsubj', 'xsubj'))
-
+    
     def __getnewargs__(self, *args, **kwargs):
         """This override is added to enable proper unpickling of the object"""
         return tuple()
-
+    
     def __new__(cls, *args, **kwargs):
         assert not args and not kwargs
         return DepType.__new__(cls, "nsubj")
-
+    
     def __init__(self):
         pass  # needed to override super init with arguments
 
@@ -974,7 +974,7 @@ class CDepConst:
     Contains commonly used Dep names
     """
     _H_BY_NAME = None
-
+    
     @classmethod
     def _fromString(cls, dep):
         '''
@@ -983,7 +983,7 @@ class CDepConst:
         if cls._H_BY_NAME is None:
             cls._H_BY_NAME = {str(t[1]): t[1] for t in cls.__dict__.items() if not t[0].startswith('_')}
         return cls._H_BY_NAME.get(dep, DepType(dep))
-
+    
     PRED = DepType('pred')
     AUX = DepType('aux')
     AUXPASS = DepType('auxpass')
@@ -1117,10 +1117,10 @@ class CTags:
             return TagType(s)
     
     @classmethod
-    def isWordType(cls, tag:str):
+    def isWordType(cls, tag: str):
         d = {str(v) for v in cls.__dict__.values() if isinstance(v, TagType)}
         return tag == tag.upper() and str(tag) in d - {'CD', 'LS', 'SYM', 'UH'}
-        #return tag == tag.upper() and tag in set(cls.__dict__.keys()) - {'CD', 'LS', 'SYM', 'UH'}
+        # return tag == tag.upper() and tag in set(cls.__dict__.keys()) - {'CD', 'LS', 'SYM', 'UH'}
     
     """Coordinating conjunction"""
     CC = TagType("CC")
@@ -1211,7 +1211,7 @@ class VerbFrames(object):
     @staticmethod
     def fromInt(i):
         return VerbFramesTuples[i][2]
-
+    
     VF_0 = VerbFrameType(0, None)
     VF_1 = VerbFrameType(1, "Something %s")
     VF_2 = VerbFrameType(2, "Somebody %s")

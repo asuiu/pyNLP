@@ -39,7 +39,7 @@ class NLTKTokenizer(TextTokenizer):
         # Initializing Punkt Sentence Tokenizer from NLTK
         from nltk import data
         self._sent_detector = data.load('tokenizers/punkt/english.pickle')
-
+    
     def tokenizeText(self, text: str) -> slist:
         """
         Uses a sentence tokenizer, and tokenize obtained sentences with a TreeBank tokenizer.
@@ -50,7 +50,7 @@ class NLTKTokenizer(TextTokenizer):
         for sent in sentences:
             sent = creReplaceNLs.sub(r' ', sent)
             tokens.extend(self._tb_tokenizer(
-                    sent))  # Tokenize sentences using TreeBank tokenizer initialized upper in the __init__ function
+                sent))  # Tokenize sentences using TreeBank tokenizer initialized upper in the __init__ function
         return tokens
     
     def __tokenizeToSentences(self, text):
